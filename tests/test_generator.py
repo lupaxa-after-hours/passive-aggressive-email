@@ -109,11 +109,7 @@ def test_phrases_translation_signoff_escalation_and_reply_all() -> None:
     assert signoffs(level=1, seed=1)[0].endswith(",")
     assert escalations(level=4, seed=2)
     public = reply_all(level=5, seed=8)[0]
-    assert (
-        "wider" in str(public["text"]).casefold()
-        or "everyone" in str(public["text"]).casefold()
-        or "group" in str(public["text"]).casefold()
-    )
+    assert "wider" in str(public["text"]).casefold() or "everyone" in str(public["text"]).casefold() or "group" in str(public["text"]).casefold()
 
 
 def test_user_template_skips_unknown_placeholders() -> None:
@@ -133,10 +129,7 @@ def test_user_template_skips_unknown_placeholders() -> None:
     catalogue = load_catalogue([str(path)])
     warnings = " ".join(catalogue.warnings)
     assert "unknown placeholder" in warnings
-    assert any(
-        "Please look at {topic} today." in text
-        for text, _flag in catalogue.patterns["generate_open"][1]
-    )
+    assert any("Please look at {topic} today." in text for text, _flag in catalogue.patterns["generate_open"][1])
     problem = pattern_problem("Hello {not_real}.", catalogue.slots())
     assert problem is not None
     assert TemplateError.code == 4
@@ -150,9 +143,7 @@ def test_invalid_template_file() -> None:
         load_catalogue([str(path)])
 
 
-def test_cli_json_markdown_file_and_config(
-    capsys: pytest.CaptureFixture[str], tmp_path: Path
-) -> None:
+def test_cli_json_markdown_file_and_config(capsys: pytest.CaptureFixture[str], tmp_path: Path) -> None:
     """JSON is valid, files are protected, and the CLI overrides configuration."""
     assert main(["generate", "--seed", "4", "--format", "json", "--quiet"]) == 0
     payload = json.loads(capsys.readouterr().out)
@@ -174,9 +165,7 @@ def test_cli_json_markdown_file_and_config(
     assert saved["results"][0]["sender"] == "Alex"
 
 
-def test_invalid_arguments_and_stdin(
-    capsys: pytest.CaptureFixture[str], monkeypatch: pytest.MonkeyPatch
-) -> None:
+def test_invalid_arguments_and_stdin(capsys: pytest.CaptureFixture[str], monkeypatch: pytest.MonkeyPatch) -> None:
     """Bad flags and a missing reply exit 2. Stdin is accepted when it has text."""
     assert main(["generate", "--level", "9"]) == 2
     assert main(["meeting", "--type", "karaoke"]) == 2

@@ -11,10 +11,10 @@ Complete notes, follow-ups, reminders, complaints, corrections, deadline
 chases, meeting replies, and short phrases. The humour is the courtesy.
 Nothing is sent.
 
-It runs entirely offline. No API keys, no model, and no network. Python
-3.11+ and the standard library are enough. Names, topics, and deadlines
-you supply are copied through as literal text. The tool does not invent
-email addresses, and it does not invent a date you did not provide.
+It runs entirely offline. No API keys, no model, and no network. Requires
+Python 3.11 to 3.15. The standard library is enough. Names, topics, and
+deadlines you supply are copied through as literal text. The tool does not
+invent email addresses, and it does not invent a date you did not provide.
 
 The PyPI name is `lupaxa-passive-aggressive-email`. The import path is
 `lupaxa.passive_aggressive_email`. The console script is

@@ -73,9 +73,7 @@ def load_settings(path: Path) -> Settings:
     if "count" in data:
         settings.count = _bounded(data["count"], MIN_COUNT, MAX_COUNT, "count")
     if "paragraphs" in data:
-        settings.paragraphs = _bounded(
-            data["paragraphs"], MIN_PARAGRAPHS, MAX_PARAGRAPHS, "paragraphs"
-        )
+        settings.paragraphs = _bounded(data["paragraphs"], MIN_PARAGRAPHS, MAX_PARAGRAPHS, "paragraphs")
     if "sender" in data:
         settings.sender = _text(data["sender"], "sender")
     if "greeting" in data:

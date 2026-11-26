@@ -251,14 +251,7 @@ def _one_email(
     return item
 
 
-def _body(
-    engine: Engine,
-    group: str,
-    paragraphs: int,
-    *,
-    deadline: str,
-    situation: str,
-) -> list[str]:
+def _body(engine: Engine, group: str, paragraphs: int, *, deadline: str, situation: str) -> list[str]:
     roles = ["open", "point", "ask"]
     if deadline and f"{group}_dated" in engine.catalogue.patterns:
         roles[1] = "dated"
@@ -272,12 +265,7 @@ def _body(
     return lines
 
 
-def _lines(
-    prefix: str,
-    category: str,
-    categories: tuple[str, ...],
-    **kwargs: Any,
-) -> list[str]:
+def _lines(prefix: str, category: str, categories: tuple[str, ...], **kwargs: Any) -> list[str]:
     engine, count = _phrase_engine(**kwargs)
     chosen = _choice(engine.rng, category, categories)
     group = f"{prefix}_{chosen}"
@@ -360,9 +348,7 @@ def _greeting(recipient: str, style: str) -> str:
     return f"Hi {name},"
 
 
-def _render_text(
-    subject: str, greeting: str, paragraphs: list[str], signoff: str, sender: str
-) -> str:
+def _render_text(subject: str, greeting: str, paragraphs: list[str], signoff: str, sender: str) -> str:
     lines = [f"Subject: {subject}", "", greeting, ""]
     for index, paragraph in enumerate(paragraphs):
         if index:

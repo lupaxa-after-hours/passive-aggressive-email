@@ -38,14 +38,7 @@ class Catalogue:
         """Return every placeholder the engine knows."""
         return set(self.words) | set(self.patterns) | set(SPECIAL_SLOTS)
 
-    def choose(
-        self,
-        group: str,
-        level: int,
-        rng: Random,
-        *,
-        plausible: bool,
-    ) -> str:
+    def choose(self, group: str, level: int, rng: Random, *, plausible: bool) -> str:
         """Pick one template, preferring the requested intensity."""
         pool = self._pool(self.patterns.get(group, {}), level, plausible)
         if not pool:
@@ -55,10 +48,7 @@ class Catalogue:
     def pick(self, category: str, level: int, rng: Random, *, plausible: bool) -> str:
         """Pick one vocabulary item."""
         pool = self._pool(
-            {
-                lv: [(text, False) for text in items]
-                for lv, items in self.words.get(category, {}).items()
-            },
+            {lv: [(text, False) for text in items] for lv, items in self.words.get(category, {}).items()},
             level,
             plausible,
         )
@@ -81,12 +71,7 @@ class Catalogue:
             raise TemplateError("no usable sign-off")
         return _weighted(chosen, rng)
 
-    def _pool(
-        self,
-        levels: dict[int, list[tuple[str, bool]]],
-        level: int,
-        plausible: bool,
-    ) -> list[tuple[str, int]]:
+    def _pool(self, levels: dict[int, list[tuple[str, bool]]], level: int, plausible: bool) -> list[tuple[str, int]]:
         chosen: list[tuple[str, int]] = []
         for item_level, items in levels.items():
             if item_level > level:
@@ -103,14 +88,8 @@ def load_builtin() -> Catalogue:
     """Return the shipped vocabulary."""
     catalogue = Catalogue(
         version=VOCABULARY_VERSION,
-        words={
-            name: {level: list(items) for level, items in levels.items()}
-            for name, levels in WORDS.items()
-        },
-        patterns={
-            name: {level: list(items) for level, items in levels.items()}
-            for name, levels in PATTERNS.items()
-        },
+        words={name: {level: list(items) for level, items in levels.items()} for name, levels in WORDS.items()},
+        patterns={name: {level: list(items) for level, items in levels.items()} for name, levels in PATTERNS.items()},
         signoffs={level: list(items) for level, items in SIGNOFFS.items()},
         overt=set(OVERT),
     )
@@ -172,9 +151,7 @@ def pattern_problem(text: str, slots: set[str]) -> str | None:
         name = match.group(1)
         if name not in slots:
             return f"unknown placeholder {{{name}}}"
-    if text.count("{") != len(SLOT_RE.findall(text)) or text.count("}") != len(
-        SLOT_RE.findall(text)
-    ):
+    if text.count("{") != len(SLOT_RE.findall(text)) or text.count("}") != len(SLOT_RE.findall(text)):
         return "invalid placeholder syntax"
     return None
 
@@ -198,14 +175,7 @@ def _merge_file(path: Path, catalogue: Catalogue) -> None:
             catalogue.warnings.append(f"{path}: ignored unknown key {key}")
 
 
-def _merge_levels(
-    path: Path,
-    kind: str,
-    value: dict[str, object],
-    catalogue: Catalogue,
-    *,
-    patterns: bool,
-) -> None:
+def _merge_levels(path: Path, kind: str, value: dict[str, object], catalogue: Catalogue, *, patterns: bool) -> None:
     for name, raw in value.items():
         found = _read_level_map(path, kind, str(name), raw, catalogue, allow_braces=patterns)
         if patterns:
@@ -215,9 +185,7 @@ def _merge_levels(
                 for text in items:
                     problem = pattern_problem(text, catalogue.slots() | {str(name)})
                     if problem:
-                        catalogue.warnings.append(
-                            f"{path}: ignored '{text}' in patterns.{name}.{level}: {problem}"
-                        )
+                        catalogue.warnings.append(f"{path}: ignored '{text}' in patterns.{name}.{level}: {problem}")
                         continue
                     valid.append((text, False))
                 if valid:
@@ -237,23 +205,13 @@ def _merge_signoffs(path: Path, value: dict[str, object], catalogue: Catalogue) 
         catalogue.signoffs.setdefault(level, []).extend(items)
 
 
-def _read_level_map(
-    path: Path,
-    kind: str,
-    name: str,
-    value: object,
-    catalogue: Catalogue,
-    *,
-    allow_braces: bool,
-) -> dict[int, list[str]]:
+def _read_level_map(path: Path, kind: str, name: str, value: object, catalogue: Catalogue, *, allow_braces: bool) -> dict[int, list[str]]:
     found: dict[int, list[str]] = {}
     if isinstance(value, list):
         found[2] = _strings(path, f"{kind}.{name}", value, catalogue, allow_braces=allow_braces)
         return found
     if not isinstance(value, dict):
-        catalogue.warnings.append(
-            f"{path}: ignored {kind}.{name} because it is not a table or list"
-        )
+        catalogue.warnings.append(f"{path}: ignored {kind}.{name} because it is not a table or list")
         return found
     for key, items in value.items():
         try:
@@ -265,9 +223,7 @@ def _read_level_map(
             catalogue.warnings.append(f"{path}: ignored {kind}.{name}.{key} (level must be 1 to 5)")
             continue
         if not isinstance(items, list):
-            catalogue.warnings.append(
-                f"{path}: ignored {kind}.{name}.{key} because it is not a list"
-            )
+            catalogue.warnings.append(f"{path}: ignored {kind}.{name}.{key} because it is not a list")
             continue
         found[level] = _strings(
             path,
@@ -279,14 +235,7 @@ def _read_level_map(
     return found
 
 
-def _strings(
-    path: Path,
-    label: str,
-    items: list[object],
-    catalogue: Catalogue,
-    *,
-    allow_braces: bool,
-) -> list[str]:
+def _strings(path: Path, label: str, items: list[object], catalogue: Catalogue, *, allow_braces: bool) -> list[str]:
     kept: list[str] = []
     for item in items:
         if not isinstance(item, str) or not item.strip():
@@ -294,9 +243,7 @@ def _strings(
             continue
         text = " ".join(item.split())
         if not allow_braces and ("{" in text or "}" in text):
-            catalogue.warnings.append(
-                f"{path}: ignored '{text}' in {label} because it contains braces"
-            )
+            catalogue.warnings.append(f"{path}: ignored '{text}' in {label} because it contains braces")
             continue
         kept.append(text)
     return kept

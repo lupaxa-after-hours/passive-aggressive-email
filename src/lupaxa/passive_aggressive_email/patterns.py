@@ -47,10 +47,7 @@ _RAW: Any = {
         3: (
             (
                 (
-                    (
-                        "I am following up on {attempts} regarding {topic}, as I "
-                        "have yet to receive a response."
-                    ),
+                    ("I am following up on {attempts} regarding {topic}, as I have yet to receive a response."),
                     False,
                 ),
             ),
@@ -59,10 +56,7 @@ _RAW: Any = {
         5: (
             (
                 (
-                    (
-                        "I am following up on {attempts} regarding {topic}, which I "
-                        "will now assume has been seen."
-                    ),
+                    ("I am following up on {attempts} regarding {topic}, which I will now assume has been seen."),
                     True,
                 ),
             ),
@@ -74,11 +68,7 @@ _RAW: Any = {
         3: (
             (
                 (
-                    (
-                        "I appreciate that this may not have reached the top of "
-                        "your list, although it would help to know whether the "
-                        "original request has been reviewed."
-                    ),
+                    ("I appreciate that this may not have reached the top of your list, although it would help to know whether the original request has been reviewed."),
                     False,
                 ),
             ),
@@ -157,10 +147,7 @@ _RAW: Any = {
         5: (
             (
                 (
-                    (
-                        "I am more than happy to clarify {topic} again, although the "
-                        "correct version was in the original note."
-                    ),
+                    ("I am more than happy to clarify {topic} again, although the correct version was in the original note."),
                     True,
                 ),
             ),
@@ -221,10 +208,7 @@ _RAW: Any = {
         5: (
             (
                 (
-                    (
-                        "Thank you for arranging another meeting to discuss the "
-                        "points already covered on {topic}."
-                    ),
+                    ("Thank you for arranging another meeting to discuss the points already covered on {topic}."),
                     True,
                 ),
             ),
@@ -256,10 +240,7 @@ _RAW: Any = {
         4: (
             (
                 (
-                    (
-                        "My attendance will not change a decision that the diary "
-                        "invite has already framed."
-                    ),
+                    ("My attendance will not change a decision that the diary invite has already framed."),
                     False,
                 ),
             ),
@@ -422,10 +403,7 @@ _RAW: Any = {
         5: (
             (
                 (
-                    (
-                        "I am copying everyone, because the private version of this "
-                        "note about {topic} did not land."
-                    ),
+                    ("I am copying everyone, because the private version of this note about {topic} did not land."),
                     True,
                 ),
             ),
@@ -469,10 +447,7 @@ _RAW: Any = {
         4: (
             (
                 (
-                    (
-                        "I've copied in the relevant stakeholders to ensure "
-                        "everyone has the same information."
-                    ),
+                    ("I've copied in the relevant stakeholders to ensure everyone has the same information."),
                     False,
                 ),
             ),
@@ -500,19 +475,13 @@ _RAW: Any = {
         4: (
             (
                 (
-                    (
-                        "I've copied in the relevant stakeholders to ensure "
-                        "everyone has the same information."
-                    ),
+                    ("I've copied in the relevant stakeholders to ensure everyone has the same information."),
                     False,
                 ),
             ),
             (
                 (
-                    (
-                        "Given the continued lack of progress, it seemed "
-                        "appropriate to broaden the conversation."
-                    ),
+                    ("Given the continued lack of progress, it seemed appropriate to broaden the conversation."),
                     False,
                 ),
             ),
@@ -529,9 +498,7 @@ def _flatten(levels: Any) -> dict[int, tuple[tuple[str, bool], ...]]:
         rows: list[tuple[str, bool]] = []
         for item in items:
             current: Any = item
-            while (
-                isinstance(current, tuple) and len(current) == 1 and isinstance(current[0], tuple)
-            ):
+            while isinstance(current, tuple) and len(current) == 1 and isinstance(current[0], tuple):
                 current = current[0]
             if isinstance(current, tuple) and len(current) == 2 and isinstance(current[0], str):
                 rows.append((current[0], bool(current[1])))
@@ -539,6 +506,4 @@ def _flatten(levels: Any) -> dict[int, tuple[tuple[str, bool], ...]]:
     return fixed
 
 
-PATTERNS: dict[str, dict[int, tuple[tuple[str, bool], ...]]] = {
-    name: _flatten(levels) for name, levels in _RAW.items()
-}
+PATTERNS: dict[str, dict[int, tuple[tuple[str, bool], ...]]] = {name: _flatten(levels) for name, levels in _RAW.items()}

@@ -81,13 +81,9 @@ def build_parser() -> argparse.ArgumentParser:
     """Return the passive-aggressive-email argument parser."""
     parser = argparse.ArgumentParser(
         prog="passive-aggressive-email",
-        description=(
-            "Generate professionally polite, passive-aggressive workplace email. Nothing is sent."
-        ),
+        description=("Generate professionally polite, passive-aggressive workplace email. Nothing is sent."),
     )
-    parser.add_argument(
-        "--version", action="version", version=f"passive-aggressive-email {get_version()}"
-    )
+    parser.add_argument("--version", action="version", version=f"passive-aggressive-email {get_version()}")
     shared = argparse.ArgumentParser(add_help=False)
     shared.add_argument("--config", help="TOML configuration file.")
     shared.add_argument("--format", dest="output_format", help="text, json, or markdown.")
@@ -100,27 +96,17 @@ def build_parser() -> argparse.ArgumentParser:
     shared.add_argument("--seed", type=int, default=None, help="Repeatable random seed.")
 
     generated = argparse.ArgumentParser(add_help=False, parents=[shared])
-    generated.add_argument(
-        "--level", type=_level, default=None, help="Passive-aggression level, 1 to 5."
-    )
-    generated.add_argument(
-        "--count", type=_count, default=None, help=f"How many results, {MIN_COUNT} to {MAX_COUNT}."
-    )
-    generated.add_argument(
-        "--plausible", action="store_true", help="Keep the irritation professionally deniable."
-    )
-    generated.add_argument(
-        "--no-plausible", action="store_true", help="Allow more pointed wording."
-    )
+    generated.add_argument("--level", type=_level, default=None, help="Passive-aggression level, 1 to 5.")
+    generated.add_argument("--count", type=_count, default=None, help=f"How many results, {MIN_COUNT} to {MAX_COUNT}.")
+    generated.add_argument("--plausible", action="store_true", help="Keep the irritation professionally deniable.")
+    generated.add_argument("--no-plausible", action="store_true", help="Allow more pointed wording.")
 
     mail = argparse.ArgumentParser(add_help=False, parents=[generated])
     mail.add_argument("--recipient", default=None, help="Recipient name, inserted as literal text.")
     mail.add_argument("--sender", default=None, help="Sender name, inserted as literal text.")
     mail.add_argument("--topic", default=None, help="Subject matter, inserted as literal text.")
     mail.add_argument("--paragraphs", type=_paragraphs, default=None, help="Body paragraph count.")
-    mail.add_argument(
-        "--greeting", choices=GREETINGS, default=None, help="hi, hello, dear, or team."
-    )
+    mail.add_argument("--greeting", choices=GREETINGS, default=None, help="hi, hello, dear, or team.")
 
     dated = argparse.ArgumentParser(add_help=False)
     dated.add_argument(
@@ -128,63 +114,39 @@ def build_parser() -> argparse.ArgumentParser:
         default=argparse.SUPPRESS,
         help="Deadline text, inserted literally. No date is invented.",
     )
-    dated.add_argument(
-        "--due", dest="deadline", default=argparse.SUPPRESS, help="Same as --deadline."
-    )
+    dated.add_argument("--due", dest="deadline", default=argparse.SUPPRESS, help="Same as --deadline.")
 
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("generate", parents=[mail], help="Generate a workplace email.")
 
-    follow = commands.add_parser(
-        "followup", parents=[mail, dated], help="Chase an unanswered request."
-    )
-    follow.add_argument(
-        "--attempts", type=_attempts, default=1, help="How many earlier emails to mention."
-    )
+    follow = commands.add_parser("followup", parents=[mail, dated], help="Chase an unanswered request.")
+    follow.add_argument("--attempts", type=_attempts, default=1, help="How many earlier emails to mention.")
 
-    commands.add_parser(
-        "reminder", parents=[mail, dated], help="Remind someone of an existing request."
-    )
+    commands.add_parser("reminder", parents=[mail, dated], help="Remind someone of an existing request.")
 
-    complaint_parser = commands.add_parser(
-        "complaint", parents=[mail], help="Write a polite complaint."
-    )
+    complaint_parser = commands.add_parser("complaint", parents=[mail], help="Write a polite complaint.")
     complaint_parser.add_argument("--category", default="random", help="Complaint category.")
 
     commands.add_parser("correction", parents=[mail], help="Correct a mistake, politely.")
 
     due = commands.add_parser("deadline", parents=[mail, dated], help="Chase overdue work.")
-    due.add_argument(
-        "--attempts", type=_attempts, default=1, help="How many earlier chases to mention."
-    )
+    due.add_argument("--attempts", type=_attempts, default=1, help="How many earlier chases to mention.")
 
     meeting_parser = commands.add_parser("meeting", parents=[mail], help="Respond to a meeting.")
     meeting_parser.add_argument("--type", dest="kind", default="random", help="Meeting situation.")
 
     reply_parser = commands.add_parser("reply", parents=[mail], help="Reply to a short situation.")
-    reply_parser.add_argument(
-        "text", nargs="?", help="The situation. Read from stdin when omitted."
-    )
+    reply_parser.add_argument("text", nargs="?", help="The situation. Read from stdin when omitted.")
 
-    phrases_parser = commands.add_parser(
-        "phrases", parents=[generated], help="Print standalone lines."
-    )
+    phrases_parser = commands.add_parser("phrases", parents=[generated], help="Print standalone lines.")
     phrases_parser.add_argument("--category", default="random", help="Phrase category.")
 
-    translate_parser = commands.add_parser(
-        "translate", parents=[shared], help="Soften a direct sentence."
-    )
-    translate_parser.add_argument(
-        "text", nargs="?", help="The sentence. Read from stdin when omitted."
-    )
-    translate_parser.add_argument(
-        "--level", type=_level, default=None, help="Passive-aggression level, 1 to 5."
-    )
+    translate_parser = commands.add_parser("translate", parents=[shared], help="Soften a direct sentence.")
+    translate_parser.add_argument("text", nargs="?", help="The sentence. Read from stdin when omitted.")
+    translate_parser.add_argument("--level", type=_level, default=None, help="Passive-aggression level, 1 to 5.")
 
     commands.add_parser("signoff", parents=[generated], help="Print a sign-off.")
-    commands.add_parser(
-        "escalation", parents=[generated], help="Suggest copying a wider audience. Nothing is sent."
-    )
+    commands.add_parser("escalation", parents=[generated], help="Suggest copying a wider audience. Nothing is sent.")
     commands.add_parser("reply-all", parents=[mail], help="Write an awkwardly public email.")
     return parser
 
@@ -200,9 +162,7 @@ def _run(args: argparse.Namespace) -> int:
     settings = load_settings(path) if path else Settings()
     level = settings.level if getattr(args, "level", None) is None else args.level
     count = settings.count if getattr(args, "count", None) is None else args.count
-    paragraphs = (
-        settings.paragraphs if getattr(args, "paragraphs", None) is None else args.paragraphs
-    )
+    paragraphs = settings.paragraphs if getattr(args, "paragraphs", None) is None else args.paragraphs
     output_format = _format(args.output_format, settings)
     sender = settings.sender if getattr(args, "sender", None) in (None, "") else args.sender
     if getattr(args, "sender", None) is None:
@@ -233,8 +193,7 @@ def _run(args: argparse.Namespace) -> int:
         payload["seed"] = args.seed
     if args.verbose:
         print(
-            f"passive-aggressive-email: command={args.command} level={payload.get('level', '')} "
-            f"format={output_format} vocabulary={catalogue.version}",
+            f"passive-aggressive-email: command={args.command} level={payload.get('level', '')} format={output_format} vocabulary={catalogue.version}",
             file=sys.stderr,
         )
     text = render_result(payload, output_format, colour=_use_colour(args, settings, output_format))
@@ -242,17 +201,7 @@ def _run(args: argparse.Namespace) -> int:
     return 0
 
 
-def _dispatch(
-    args: argparse.Namespace,
-    *,
-    level: int,
-    count: int,
-    paragraphs: int,
-    sender: str,
-    greeting: str,
-    plausible: bool,
-    catalogue: Catalogue,
-) -> dict[str, object]:
+def _dispatch(args: argparse.Namespace, *, level: int, count: int, paragraphs: int, sender: str, greeting: str, plausible: bool, catalogue: Catalogue) -> dict[str, object]:
     """Build the structured result for one command."""
     command = args.command
     shared = {
@@ -300,14 +249,10 @@ def _dispatch(
         )
         return _phrase_payload(level, plausible, args.category, lines)
     elif command == "signoff":
-        lines = signoffs(
-            level=level, count=count, seed=args.seed, plausible=plausible, catalogue=catalogue
-        )
+        lines = signoffs(level=level, count=count, seed=args.seed, plausible=plausible, catalogue=catalogue)
         return _phrase_payload(level, plausible, "signoff", lines)
     elif command == "escalation":
-        lines = escalations(
-            level=level, count=count, seed=args.seed, plausible=plausible, catalogue=catalogue
-        )
+        lines = escalations(level=level, count=count, seed=args.seed, plausible=plausible, catalogue=catalogue)
         return _phrase_payload(level, plausible, "escalation", lines)
     elif command == "translate":
         rewritten = translate(_text_input(args), level=level)
@@ -317,9 +262,7 @@ def _dispatch(
     return {"level": level, "plausible": plausible, "results": results}
 
 
-def _phrase_payload(
-    level: int, plausible: bool, situation: str, lines: list[str]
-) -> dict[str, object]:
+def _phrase_payload(level: int, plausible: bool, situation: str, lines: list[str]) -> dict[str, object]:
     return {"level": level, "plausible": plausible, "situation": situation, "results": lines}
 
 
@@ -364,9 +307,7 @@ def _use_colour(args: argparse.Namespace, settings: Settings, output_format: str
         return False
     if args.colour:
         return output_format == "text" and not args.output and sys.stdout.isatty()
-    return bool(
-        settings.colour and output_format == "text" and not args.output and sys.stdout.isatty()
-    )
+    return bool(settings.colour and output_format == "text" and not args.output and sys.stdout.isatty())
 
 
 def _known(value: str, allowed: tuple[str, ...], label: str) -> None:

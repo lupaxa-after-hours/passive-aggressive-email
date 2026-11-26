@@ -30,15 +30,7 @@ _MARKS = {
 class Engine:
     """Fill templates from one catalogue and one random stream."""
 
-    def __init__(
-        self,
-        catalogue: Catalogue,
-        rng: Random,
-        level: int,
-        *,
-        plausible: bool,
-        literals: dict[str, str],
-    ) -> None:
+    def __init__(self, catalogue: Catalogue, rng: Random, level: int, *, plausible: bool, literals: dict[str, str]) -> None:
         self.catalogue = catalogue
         self.rng = rng
         self.level = level
@@ -57,9 +49,7 @@ class Engine:
         """Substitute placeholders. Optional clauses are kept or dropped."""
         if depth > 3:
             raise TemplateError("template nesting is too deep")
-        text = OPTIONAL_RE.sub(
-            lambda match: match.group(1) if self.rng.random() < 0.5 else "", template
-        )
+        text = OPTIONAL_RE.sub(lambda match: match.group(1) if self.rng.random() < 0.5 else "", template)
 
         def replace(match: re.Match[str]) -> str:
             return self._slot(match.group(1), depth)

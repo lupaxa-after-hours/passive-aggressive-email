@@ -125,10 +125,7 @@ WORDS: dict[str, dict[int, tuple[str, ...]]] = {
         ),
         4: (
             "I have copied the relevant stakeholders so everyone has the same information.",
-            (
-                "Given the continued lack of progress, it seemed "
-                "appropriate to broaden the conversation."
-            ),
+            ("Given the continued lack of progress, it seemed appropriate to broaden the conversation."),
         ),
         5: (
             "I have copied the relevant management alias so this is no longer only my problem.",
@@ -244,73 +241,46 @@ PHRASES: tuple[tuple[int, str, str], ...] = (
     (
         3,
         "you clearly didn't read this",
-        (
-            "as the relevant information was included in my original correspondence, I "
-            "would encourage another review of the previous message"
-        ),
+        ("as the relevant information was included in my original correspondence, I would encourage another review of the previous message"),
     ),
     (
         5,
         "you clearly didn't read this",
-        (
-            "as the relevant information was included in my original "
-            "correspondence, another review of that message would be a good "
-            "use of the time already spent explaining it"
-        ),
+        ("as the relevant information was included in my original correspondence, another review of that message would be a good use of the time already spent explaining it"),
     ),
     (1, "you didn't read my email", "the relevant information was in my earlier email"),
     (
         3,
         "you didn't read my email",
-        (
-            "as the relevant information was included in my original correspondence, I "
-            "would encourage another review of the previous message"
-        ),
+        ("as the relevant information was included in my original correspondence, I would encourage another review of the previous message"),
     ),
     (
         5,
         "you didn't read my email",
-        (
-            "as the relevant information was included in my original "
-            "correspondence, I would encourage another review of the previous "
-            "message rather than a further explanation"
-        ),
+        ("as the relevant information was included in my original correspondence, I would encourage another review of the previous message rather than a further explanation"),
     ),
     (1, "you did not read my email", "the relevant information was in my earlier email"),
     (
         3,
         "you did not read my email",
-        (
-            "as the relevant information was included in my original correspondence, I "
-            "would encourage another review of the previous message"
-        ),
+        ("as the relevant information was included in my original correspondence, I would encourage another review of the previous message"),
     ),
     (1, "stop wasting my time", "I would appreciate a more focused conversation"),
     (
         3,
         "stop wasting my time",
-        (
-            "I would appreciate a more considered approach to how we "
-            "allocate our collective time moving forward"
-        ),
+        ("I would appreciate a more considered approach to how we allocate our collective time moving forward"),
     ),
     (
         5,
         "stop wasting my time",
-        (
-            "I would appreciate a more considered approach to how we "
-            "allocate our collective time moving forward, particularly where "
-            "the answer has already been provided"
-        ),
+        ("I would appreciate a more considered approach to how we allocate our collective time moving forward, particularly where the answer has already been provided"),
     ),
     (1, "this meeting is pointless", "I am not sure this meeting is the best use of the time"),
     (
         5,
         "this meeting is pointless",
-        (
-            "thank you for arranging another meeting to discuss the points already "
-            "covered extensively in our previous meeting"
-        ),
+        ("thank you for arranging another meeting to discuss the points already covered extensively in our previous meeting"),
     ),
     (
         3,
