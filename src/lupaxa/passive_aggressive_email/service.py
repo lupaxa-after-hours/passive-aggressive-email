@@ -8,26 +8,15 @@ from typing import Any, TypeAlias
 from lupaxa.passive_aggressive_email.catalogue import Catalogue, load_builtin
 from lupaxa.passive_aggressive_email.engine import Engine
 from lupaxa.passive_aggressive_email.exceptions import UsageError
-from lupaxa.passive_aggressive_email.models import (
-    ATTEMPT_WORDS,
-    COMPLAINT_CATEGORIES,
-    MEETING_TYPES,
-    PHRASE_CATEGORIES,
-)
+from lupaxa.passive_aggressive_email.models import ATTEMPT_WORDS, COMPLAINT_CATEGORIES, MEETING_TYPES, PHRASE_CATEGORIES
 from lupaxa.passive_aggressive_email.polish import polish
 from lupaxa.passive_aggressive_email.translate import translate_text
 
 JsonObject: TypeAlias = dict[str, object]
 
 _REPLY_RULES: tuple[tuple[tuple[str, ...], str], ...] = (
-    (
-        ("already answered", "already told", "didn't read", "did not read", "clearly didn't"),
-        "ignored",
-    ),
-    (
-        ("ignored", "no reply", "no response", "haven't heard", "didn't reply", "did not reply"),
-        "chase",
-    ),
+    (("already answered", "already told", "didn't read", "did not read", "clearly didn't"), "ignored"),
+    (("ignored", "no reply", "no response", "haven't heard", "didn't reply", "did not reply"), "chase"),
     (("meeting", "pointless", "calendar"), "meeting"),
     (("late", "overdue", "deadline"), "deadline"),
     (("wrong", "incorrect", "mistake"), "correction"),

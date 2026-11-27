@@ -8,16 +8,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from lupaxa.passive_aggressive_email.exceptions import UsageError
-from lupaxa.passive_aggressive_email.models import (
-    FORMATS,
-    GREETINGS,
-    MAX_COUNT,
-    MAX_LEVEL,
-    MAX_PARAGRAPHS,
-    MIN_COUNT,
-    MIN_LEVEL,
-    MIN_PARAGRAPHS,
-)
+from lupaxa.passive_aggressive_email.models import FORMATS, GREETINGS, MAX_COUNT, MAX_LEVEL, MAX_PARAGRAPHS, MIN_COUNT, MIN_LEVEL, MIN_PARAGRAPHS
 
 _KEYS = {
     "level",

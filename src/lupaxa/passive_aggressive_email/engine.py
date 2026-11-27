@@ -7,15 +7,7 @@ from random import Random
 
 from lupaxa.passive_aggressive_email.catalogue import OPTIONAL_RE, SLOT_RE, SPECIAL_SLOTS, Catalogue
 from lupaxa.passive_aggressive_email.exceptions import TemplateError
-from lupaxa.passive_aggressive_email.polish import (
-    ATTEMPTS_MARK,
-    DEADLINE_MARK,
-    RECIPIENT_MARK,
-    SENDER_MARK,
-    SITUATION_MARK,
-    TOPIC_MARK,
-    polish,
-)
+from lupaxa.passive_aggressive_email.polish import ATTEMPTS_MARK, DEADLINE_MARK, RECIPIENT_MARK, SENDER_MARK, SITUATION_MARK, TOPIC_MARK, polish
 
 _MARKS = {
     "topic": TOPIC_MARK,

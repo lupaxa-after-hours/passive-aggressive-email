@@ -7,21 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from lupaxa.passive_aggressive_email import (
-    complaint,
-    correction,
-    deadline,
-    escalations,
-    followup,
-    generate,
-    meeting,
-    phrases,
-    reminder,
-    reply,
-    reply_all,
-    signoffs,
-    translate,
-)
+from lupaxa.passive_aggressive_email import complaint, correction, deadline, escalations, followup, generate, meeting, phrases, reminder, reply, reply_all, signoffs, translate
 from lupaxa.passive_aggressive_email.catalogue import load_builtin, load_catalogue, pattern_problem
 from lupaxa.passive_aggressive_email.cli import main
 from lupaxa.passive_aggressive_email.exceptions import DataFileError, TemplateError, UsageError

@@ -47,11 +47,7 @@ class Catalogue:
 
     def pick(self, category: str, level: int, rng: Random, *, plausible: bool) -> str:
         """Pick one vocabulary item."""
-        pool = self._pool(
-            {lv: [(text, False) for text in items] for lv, items in self.words.get(category, {}).items()},
-            level,
-            plausible,
-        )
+        pool = self._pool({lv: [(text, False) for text in items] for lv, items in self.words.get(category, {}).items()}, level, plausible)
         if not pool:
             raise TemplateError(f"no usable vocabulary for {category} at level {level}")
         return _weighted(pool, rng)
@@ -225,13 +221,7 @@ def _read_level_map(path: Path, kind: str, name: str, value: object, catalogue: 
         if not isinstance(items, list):
             catalogue.warnings.append(f"{path}: ignored {kind}.{name}.{key} because it is not a list")
             continue
-        found[level] = _strings(
-            path,
-            f"{kind}.{name}.{level}",
-            items,
-            catalogue,
-            allow_braces=allow_braces,
-        )
+        found[level] = _strings(path, f"{kind}.{name}.{level}", items, catalogue, allow_braces=allow_braces)
     return found
 
 

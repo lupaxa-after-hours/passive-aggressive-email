@@ -44,35 +44,14 @@ _RAW: Any = {
     "followup_open": {
         1: (("I am following up on {attempts} regarding {topic}.", False),),
         2: (("I am writing again about {topic}, further to {attempts}.", False),),
-        3: (
-            (
-                (
-                    ("I am following up on {attempts} regarding {topic}, as I have yet to receive a response."),
-                    False,
-                ),
-            ),
-        ),
+        3: ((("I am following up on {attempts} regarding {topic}, as I have yet to receive a response."), False)),
         4: (("{ignored} this is about {topic}, and it refers to {attempts}.", False),),
-        5: (
-            (
-                (
-                    ("I am following up on {attempts} regarding {topic}, which I will now assume has been seen."),
-                    True,
-                ),
-            ),
-        ),
+        5: ((("I am following up on {attempts} regarding {topic}, which I will now assume has been seen."), True)),
     },
     "followup_point": {
         1: (("Please let me know if you need anything else from me.", False),),
         2: (("{disappointment}", False),),
-        3: (
-            (
-                (
-                    ("I appreciate that this may not have reached the top of your list, although it would help to know whether the original request has been reviewed."),
-                    False,
-                ),
-            ),
-        ),
+        3: ((("I appreciate that this may not have reached the top of your list, although it would help to know whether the original request has been reviewed."), False)),
         4: (("{already} {disappointment}", False),),
         5: (("{question}", True),),
     },
@@ -114,12 +93,7 @@ _RAW: Any = {
     "complaint_open": {
         1: (("I wanted to raise {topic} while it is still a small thing.", False),),
         3: (("I am writing about {topic}, which has now come up more than once.", False),),
-        5: (
-            (
-                "{opening} I am raising {topic} again because the first note did not settle it.",
-                True,
-            ),
-        ),
+        5: (("{opening} I am raising {topic} again because the first note did not settle it.", True)),
     },
     "complaint_point": {
         1: (("It would help if we could agree a simple standard.", False),),
@@ -128,12 +102,7 @@ _RAW: Any = {
     },
     "complaint_ask": {
         1: (("Could we agree a way forward on {topic}?", False),),
-        3: (
-            (
-                "Please treat {topic} as something that needs a change, not another discussion.",
-                False,
-            ),
-        ),
+        3: (("Please treat {topic} as something that needs a change, not another discussion.", False)),
         5: (("{question}", True),),
     },
     "correction_subject": {
@@ -144,14 +113,7 @@ _RAW: Any = {
     "correction_open": {
         1: (("A small clarification on {topic}.", False),),
         3: (("I am more than happy to clarify {topic} again.", False),),
-        5: (
-            (
-                (
-                    ("I am more than happy to clarify {topic} again, although the correct version was in the original note."),
-                    True,
-                ),
-            ),
-        ),
+        5: ((("I am more than happy to clarify {topic} again, although the correct version was in the original note."), True)),
     },
     "correction_point": {
         1: (("The earlier document is the one to use.", False),),
@@ -161,12 +123,7 @@ _RAW: Any = {
     "correction_ask": {
         1: (("Please use that version going forward.", False),),
         3: (("I trust this clarifies matters.", False),),
-        5: (
-            (
-                "I trust this clarifies matters, including the part that was already written down.",
-                True,
-            ),
-        ),
+        5: (("I trust this clarifies matters, including the part that was already written down.", True)),
     },
     "deadline_subject": {
         1: (("Update needed: {topic}", False),),
@@ -176,12 +133,7 @@ _RAW: Any = {
     "deadline_open": {
         1: (("I am writing because {topic} is now overdue.", False),),
         3: (("{opening} {topic} has passed the point we agreed.", False),),
-        5: (
-            (
-                "I am writing because {topic} is overdue, and the reminder has already been sent.",
-                True,
-            ),
-        ),
+        5: (("I am writing because {topic} is overdue, and the reminder has already been sent.", True)),
     },
     "deadline_dated": {
         1: (("I am writing because {topic} was due {deadline}.", False),),
@@ -205,14 +157,7 @@ _RAW: Any = {
     "meeting_unnecessary_open": {
         1: (("Thank you for the invitation to discuss {topic}.", False),),
         3: (("Thank you for arranging time on {topic}.", False),),
-        5: (
-            (
-                (
-                    ("Thank you for arranging another meeting to discuss the points already covered on {topic}."),
-                    True,
-                ),
-            ),
-        ),
+        5: ((("Thank you for arranging another meeting to discuss the points already covered on {topic}."), True)),
     },
     "meeting_unnecessary_point": {
         1: (("I am not sure we need a meeting if the note already covers it.", False),),
@@ -228,23 +173,11 @@ _RAW: Any = {
     },
     "meeting_declined_open": {
         1: (("Thank you for the invitation regarding {topic}.", False),),
-        3: (
-            (
-                "Thank you for the invitation. I will not be attending the meeting on {topic}.",
-                False,
-            ),
-        ),
+        3: (("Thank you for the invitation. I will not be attending the meeting on {topic}.", False)),
     },
     "meeting_declined_point": {
         1: (("I am content for the discussion to proceed without me.", False),),
-        4: (
-            (
-                (
-                    ("My attendance will not change a decision that the diary invite has already framed."),
-                    False,
-                ),
-            ),
-        ),
+        4: ((("My attendance will not change a decision that the diary invite has already framed."), False)),
     },
     "meeting_declined_ask": {
         1: (("Please send the notes afterwards.", False),),
@@ -400,14 +333,7 @@ _RAW: Any = {
     },
     "replyall_open": {
         2: (("I am sending this to the wider group so there is one record of {topic}.", False),),
-        5: (
-            (
-                (
-                    ("I am copying everyone, because the private version of this note about {topic} did not land."),
-                    True,
-                ),
-            ),
-        ),
+        5: ((("I am copying everyone, because the private version of this note about {topic} did not land."), True)),
     },
     "replyall_point": {
         2: (("{already}", False),),
@@ -435,23 +361,11 @@ _RAW: Any = {
     "phrase_followup": {
         2: (("Just circling back on the earlier note.", False),),
         4: (("As outlined in my earlier correspondence, this is still open.", False),),
-        5: (
-            (
-                "As I'm sure you'll recall from our previous discussions, this is still waiting.",
-                True,
-            ),
-        ),
+        5: (("As I'm sure you'll recall from our previous discussions, this is still waiting.", True)),
     },
     "phrase_escalation": {
         2: (("{escalation}", False),),
-        4: (
-            (
-                (
-                    ("I've copied in the relevant stakeholders to ensure everyone has the same information."),
-                    False,
-                ),
-            ),
-        ),
+        4: ((("I've copied in the relevant stakeholders to ensure everyone has the same information."), False)),
         5: (("{escalation}", True),),
     },
     "phrase_gratitude": {
@@ -473,18 +387,8 @@ _RAW: Any = {
         2: (("I can include the wider team if that would help.", False),),
         3: (("I've included the wider team for visibility.", False),),
         4: (
-            (
-                (
-                    ("I've copied in the relevant stakeholders to ensure everyone has the same information."),
-                    False,
-                ),
-            ),
-            (
-                (
-                    ("Given the continued lack of progress, it seemed appropriate to broaden the conversation."),
-                    False,
-                ),
-            ),
+            ((("I've copied in the relevant stakeholders to ensure everyone has the same information."), False)),
+            ((("Given the continued lack of progress, it seemed appropriate to broaden the conversation."), False)),
         ),
         5: (("{escalation}", True), ("I have copied {management} so this is visible.", True)),
     },

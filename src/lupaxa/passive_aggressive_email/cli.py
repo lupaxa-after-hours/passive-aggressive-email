@@ -11,11 +11,7 @@ from pathlib import Path
 
 from lupaxa.passive_aggressive_email.catalogue import Catalogue, load_catalogue
 from lupaxa.passive_aggressive_email.config import Settings, discover_config, load_settings
-from lupaxa.passive_aggressive_email.exceptions import (
-    IOProblem,
-    PassiveAggressiveEmailError,
-    UsageError,
-)
+from lupaxa.passive_aggressive_email.exceptions import IOProblem, PassiveAggressiveEmailError, UsageError
 from lupaxa.passive_aggressive_email.formatting import render_result
 from lupaxa.passive_aggressive_email.models import (
     COMPLAINT_CATEGORIES,
@@ -33,21 +29,7 @@ from lupaxa.passive_aggressive_email.models import (
     PHRASE_CATEGORIES,
     VOCABULARY_VERSION,
 )
-from lupaxa.passive_aggressive_email.service import (
-    complaint,
-    correction,
-    deadline,
-    escalations,
-    followup,
-    generate,
-    meeting,
-    phrases,
-    reminder,
-    reply,
-    reply_all,
-    signoffs,
-    translate,
-)
+from lupaxa.passive_aggressive_email.service import complaint, correction, deadline, escalations, followup, generate, meeting, phrases, reminder, reply, reply_all, signoffs, translate
 from lupaxa.passive_aggressive_email.version import get_version
 
 
@@ -79,10 +61,7 @@ def main(argv: list[str] | None = None) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     """Return the passive-aggressive-email argument parser."""
-    parser = argparse.ArgumentParser(
-        prog="passive-aggressive-email",
-        description=("Generate professionally polite, passive-aggressive workplace email. Nothing is sent."),
-    )
+    parser = argparse.ArgumentParser(prog="passive-aggressive-email", description=("Generate professionally polite, passive-aggressive workplace email. Nothing is sent."))
     parser.add_argument("--version", action="version", version=f"passive-aggressive-email {get_version()}")
     shared = argparse.ArgumentParser(add_help=False)
     shared.add_argument("--config", help="TOML configuration file.")
@@ -109,11 +88,7 @@ def build_parser() -> argparse.ArgumentParser:
     mail.add_argument("--greeting", choices=GREETINGS, default=None, help="hi, hello, dear, or team.")
 
     dated = argparse.ArgumentParser(add_help=False)
-    dated.add_argument(
-        "--deadline",
-        default=argparse.SUPPRESS,
-        help="Deadline text, inserted literally. No date is invented.",
-    )
+    dated.add_argument("--deadline", default=argparse.SUPPRESS, help="Deadline text, inserted literally. No date is invented.")
     dated.add_argument("--due", dest="deadline", default=argparse.SUPPRESS, help="Same as --deadline.")
 
     commands = parser.add_subparsers(dest="command", required=True)
@@ -177,25 +152,13 @@ def _run(args: argparse.Namespace) -> int:
     if catalogue.warnings and not args.quiet:
         for warning in catalogue.warnings:
             print(f"warning: {warning}", file=sys.stderr)
-    payload = _dispatch(
-        args,
-        level=level,
-        count=count,
-        paragraphs=paragraphs,
-        sender=sender,
-        greeting=greeting,
-        plausible=plausible,
-        catalogue=catalogue,
-    )
+    payload = _dispatch(args, level=level, count=count, paragraphs=paragraphs, sender=sender, greeting=greeting, plausible=plausible, catalogue=catalogue)
     payload["mode"] = args.command
     payload["vocabulary_version"] = catalogue.version or VOCABULARY_VERSION
     if args.seed is not None and "seed" not in payload:
         payload["seed"] = args.seed
     if args.verbose:
-        print(
-            f"passive-aggressive-email: command={args.command} level={payload.get('level', '')} format={output_format} vocabulary={catalogue.version}",
-            file=sys.stderr,
-        )
+        print(f"passive-aggressive-email: command={args.command} level={payload.get('level', '')} format={output_format} vocabulary={catalogue.version}", file=sys.stderr)
     text = render_result(payload, output_format, colour=_use_colour(args, settings, output_format))
     _emit(text, args.output, args.force)
     return 0
@@ -239,14 +202,7 @@ def _dispatch(args: argparse.Namespace, *, level: int, count: int, paragraphs: i
         results = reply_all(**shared)
     elif command == "phrases":
         _known(args.category, PHRASE_CATEGORIES, "phrase category")
-        lines = phrases(
-            category=args.category,
-            level=level,
-            count=count,
-            seed=args.seed,
-            plausible=plausible,
-            catalogue=catalogue,
-        )
+        lines = phrases(category=args.category, level=level, count=count, seed=args.seed, plausible=plausible, catalogue=catalogue)
         return _phrase_payload(level, plausible, args.category, lines)
     elif command == "signoff":
         lines = signoffs(level=level, count=count, seed=args.seed, plausible=plausible, catalogue=catalogue)

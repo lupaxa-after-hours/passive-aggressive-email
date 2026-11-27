@@ -16,49 +16,11 @@ MAX_ATTEMPTS = 20
 FORMATS = ("text", "json", "markdown")
 GREETINGS = ("hi", "hello", "dear", "team")
 
-MEETING_TYPES = (
-    "unnecessary",
-    "declined",
-    "reschedule",
-    "followup",
-    "attendance",
-    "summary",
-    "random",
-)
-COMPLAINT_CATEGORIES = (
-    "communication",
-    "deadline",
-    "incomplete",
-    "mistakes",
-    "etiquette",
-    "meetings",
-    "responsiveness",
-    "general",
-    "random",
-)
-PHRASE_CATEGORIES = (
-    "reminder",
-    "disappointment",
-    "correction",
-    "followup",
-    "escalation",
-    "gratitude",
-    "disagreement",
-    "clarification",
-    "random",
-)
+MEETING_TYPES = ("unnecessary", "declined", "reschedule", "followup", "attendance", "summary", "random")
+COMPLAINT_CATEGORIES = ("communication", "deadline", "incomplete", "mistakes", "etiquette", "meetings", "responsiveness", "general", "random")
+PHRASE_CATEGORIES = ("reminder", "disappointment", "correction", "followup", "escalation", "gratitude", "disagreement", "clarification", "random")
 
-EMAIL_MODES = (
-    "generate",
-    "followup",
-    "reminder",
-    "complaint",
-    "correction",
-    "deadline",
-    "meeting",
-    "reply",
-    "reply-all",
-)
+EMAIL_MODES = ("generate", "followup", "reminder", "complaint", "correction", "deadline", "meeting", "reply", "reply-all")
 PHRASE_MODES = ("phrases", "signoff", "escalation")
 
 ATTEMPT_WORDS = {
